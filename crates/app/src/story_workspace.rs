@@ -362,7 +362,6 @@ impl StoryWorkspace {
             1 => Arc::new(StoryContainer::panel::<InputStory>(cx)),
             2 => Arc::new(StoryContainer::panel::<DropdownStory>(cx)),
             3 => Arc::new(StoryContainer::panel::<TextStory>(cx)),
-            4 => Arc::new(StoryContainer::panel::<ModalStory>(cx)),
             5 => Arc::new(StoryContainer::panel::<PopupStory>(cx)),
             6 => Arc::new(StoryContainer::panel::<SwitchStory>(cx)),
             7 => Arc::new(StoryContainer::panel::<ProgressStory>(cx)),
