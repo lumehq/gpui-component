@@ -285,6 +285,38 @@ impl DockArea {
         cx.notify();
     }
 
+    pub fn add_panel_to_tabs(&self, panel: Arc<dyn PanelView>, cx: &mut ViewContext<Self>) {
+        match self.items.clone() {
+            DockItem::Tabs {
+                mut items,
+                mut active_ix,
+                view,
+            } => view.update(cx, |view, cx| {
+                view.add_panel(panel.clone(), cx);
+                items.push(panel);
+                active_ix += 1;
+                cx.notify();
+            }),
+            DockItem::Split { view, items, .. } => view.update(cx, |_, cx| {
+                for item in items.into_iter() {
+                    if let DockItem::Tabs {
+                        mut items,
+                        mut active_ix,
+                        view,
+                    } = item
+                    {
+                        view.update(cx, |view, cx| {
+                            view.add_panel(panel.clone(), cx);
+                            items.push(panel.clone());
+                            active_ix += 1;
+                            cx.notify();
+                        })
+                    }
+                }
+            }),
+        }
+    }
+
     pub fn set_left_dock(
         &mut self,
         panel: DockItem,
