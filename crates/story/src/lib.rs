@@ -6,7 +6,6 @@ mod icon_story;
 mod image_story;
 mod input_story;
 mod list_story;
-mod modal_story;
 mod popup_story;
 mod progress_story;
 mod resizable_story;
@@ -15,7 +14,6 @@ mod switch_story;
 mod table_story;
 mod text_story;
 mod tooltip_story;
-mod webview_story;
 
 pub use accordion_story::AccordionStory;
 pub use button_story::ButtonStory;
@@ -25,7 +23,6 @@ pub use icon_story::IconStory;
 pub use image_story::ImageStory;
 pub use input_story::InputStory;
 pub use list_story::ListStory;
-pub use modal_story::ModalStory;
 pub use popup_story::PopupStory;
 pub use progress_story::ProgressStory;
 pub use resizable_story::ResizableStory;
@@ -35,7 +32,6 @@ pub use switch_story::SwitchStory;
 pub use table_story::TableStory;
 pub use text_story::TextStory;
 pub use tooltip_story::TooltipStory;
-pub use webview_story::WebViewStory;
 
 use gpui::{
     actions, div, prelude::FluentBuilder as _, px, AnyElement, AnyView, AppContext, Div,
@@ -246,7 +242,6 @@ impl StoryState {
             "ImageStory" => story!(ImageStory),
             "InputStory" => story!(InputStory),
             "ListStory" => story!(ListStory),
-            "ModalStory" => story!(ModalStory),
             "PopupStory" => story!(PopupStory),
             "ProgressStory" => story!(ProgressStory),
             "ResizableStory" => story!(ResizableStory),
@@ -255,7 +250,6 @@ impl StoryState {
             "TableStory" => story!(TableStory),
             "TextStory" => story!(TextStory),
             "TooltipStory" => story!(TooltipStory),
-            "WebViewStory" => story!(WebViewStory),
             "AccordionStory" => story!(AccordionStory),
             _ => {
                 unreachable!("Invalid story klass: {}", self.story_klass)

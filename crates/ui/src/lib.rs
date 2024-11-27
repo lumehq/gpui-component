@@ -43,10 +43,6 @@ pub mod tab;
 pub mod table;
 pub mod theme;
 pub mod tooltip;
-pub mod webview;
-
-// re-export
-pub use wry;
 
 pub use crate::Disableable;
 pub use event::InteractiveElementExt;
@@ -60,9 +56,8 @@ pub use colors::*;
 pub use icon::*;
 pub use svg_img::*;
 
-use std::ops::Deref;
-
 use rust_embed::RustEmbed;
+use std::ops::Deref;
 
 rust_i18n::i18n!("locales", fallback = "en");
 
