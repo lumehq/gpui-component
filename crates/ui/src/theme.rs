@@ -204,6 +204,14 @@ pub struct ThemeColor {
     pub table_row_border: Hsla,
     pub title_bar: Hsla,
     pub title_bar_border: Hsla,
+    pub sidebar_background: Hsla,
+    pub sidebar_foreground: Hsla,
+    pub sidebar_primary: Hsla,
+    pub sidebar_primary_foreground: Hsla,
+    pub sidebar_accent: Hsla,
+    pub sidebar_accent_foreground: Hsla,
+    pub sidebar_border: Hsla,
+    pub sidebar_ring: Hsla,
 }
 
 impl ThemeColor {
@@ -271,6 +279,14 @@ impl ThemeColor {
             table_row_border: hsl(240.0, 5.9, 90.0).opacity(0.5),
             title_bar: hsl(0.0, 0.0, 100.),
             title_bar_border: hsl(240.0, 5.9, 90.0),
+            sidebar_background: hsl(0.0, 0.0, 98.),
+            sidebar_foreground: hsl(240.0, 5.3, 26.1),
+            sidebar_primary: hsl(240.0, 5.9, 10.),
+            sidebar_primary_foreground: hsl(0.0, 0.0, 98.),
+            sidebar_accent: hsl(240.0, 4.8, 95.9),
+            sidebar_accent_foreground: hsl(240.0, 5.9, 10.),
+            sidebar_border: hsl(220.0, 13.0, 91.),
+            sidebar_ring: hsl(240.0, 5.0, 64.9),
         }
     }
 
@@ -338,6 +354,14 @@ impl ThemeColor {
             table_row_border: hsl(240.0, 3.7, 16.9).opacity(0.5),
             title_bar: hsl(0., 0., 9.7),
             title_bar_border: hsl(240.0, 3.7, 15.9),
+            sidebar_background: hsl(240.0, 5.9, 10.),
+            sidebar_foreground: hsl(240.0, 4.8, 95.9),
+            sidebar_primary: hsl(224.3, 76.3, 48.),
+            sidebar_primary_foreground: hsl(0.0, 0.0, 100.),
+            sidebar_accent: hsl(240.0, 3.7, 15.9),
+            sidebar_accent_foreground: hsl(240.0, 4.8, 95.9),
+            sidebar_border: hsl(240.0, 3.7, 15.9),
+            sidebar_ring: hsl(240.0, 4.9, 83.9),
         }
     }
 }
@@ -411,6 +435,14 @@ pub struct Theme {
     pub table_row_border: Hsla,
     pub title_bar: Hsla,
     pub title_bar_border: Hsla,
+    pub sidebar_background: Hsla,
+    pub sidebar_foreground: Hsla,
+    pub sidebar_primary: Hsla,
+    pub sidebar_primary_foreground: Hsla,
+    pub sidebar_accent: Hsla,
+    pub sidebar_accent_foreground: Hsla,
+    pub sidebar_border: Hsla,
+    pub sidebar_ring: Hsla,
     pub transparent: Hsla,
 }
 
@@ -565,6 +597,14 @@ impl From<ThemeColor> for Theme {
             table_row_border: colors.table_row_border,
             title_bar: colors.title_bar,
             title_bar_border: colors.title_bar_border,
+            sidebar_background: colors.sidebar_background,
+            sidebar_foreground: colors.sidebar_foreground,
+            sidebar_primary: colors.sidebar_primary,
+            sidebar_primary_foreground: colors.sidebar_primary_foreground,
+            sidebar_accent: colors.sidebar_accent,
+            sidebar_accent_foreground: colors.sidebar_accent_foreground,
+            sidebar_border: colors.sidebar_border,
+            sidebar_ring: colors.sidebar_ring,
         }
     }
 }
