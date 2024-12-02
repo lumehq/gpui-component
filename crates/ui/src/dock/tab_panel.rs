@@ -74,7 +74,8 @@ pub struct TabPanel {
     /// If this is true, the Panel closeable will follow the active panel's closeable,
     /// otherwise this TabPanel will not able to close
     pub(crate) closeable: bool,
-
+    /// Hide the titlebar
+    pub(crate) hidden_titlebar: bool,
     tab_bar_scroll_handle: ScrollHandle,
     is_zoomed: bool,
     is_collapsed: bool,
@@ -139,6 +140,7 @@ impl TabPanel {
     pub fn new(
         stack_panel: Option<WeakView<StackPanel>>,
         dock_area: WeakView<DockArea>,
+        hidden_titlebar: bool,
         cx: &mut ViewContext<Self>,
     ) -> Self {
         Self {
@@ -152,6 +154,7 @@ impl TabPanel {
             is_zoomed: false,
             is_collapsed: false,
             closeable: true,
+            hidden_titlebar,
         }
     }
 
@@ -747,7 +750,7 @@ impl TabPanel {
     ) {
         let dock_area = self.dock_area.clone();
         // wrap the panel in a TabPanel
-        let new_tab_panel = cx.new_view(|cx| Self::new(None, dock_area.clone(), cx));
+        let new_tab_panel = cx.new_view(|cx| Self::new(None, dock_area.clone(), false, cx));
         new_tab_panel.update(cx, |view, cx| {
             view.add_panel(panel, cx);
         });
@@ -892,7 +895,9 @@ impl Render for TabPanel {
             .size_full()
             .overflow_hidden()
             .bg(cx.theme().background)
-            .child(self.render_title_bar(state, cx))
+            .when(!self.hidden_titlebar, |div| {
+                div.child(self.render_title_bar(state, cx))
+            })
             .child(self.render_active_panel(state, cx))
     }
 }

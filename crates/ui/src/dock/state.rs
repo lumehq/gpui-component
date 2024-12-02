@@ -177,7 +177,7 @@ impl DockItemState {
                     })
                     .collect_vec();
 
-                DockItem::tabs(items, Some(active_index), &dock_area, cx)
+                DockItem::tabs(items, Some(active_index), &dock_area, false, cx)
             }
             DockItemInfo::Panel(_) => {
                 let view = if let Some(f) = cx
@@ -194,7 +194,7 @@ impl DockItemState {
                     )
                 };
 
-                DockItem::tabs(vec![view.into()], None, &dock_area, cx)
+                DockItem::tabs(vec![view.into()], None, &dock_area, false, cx)
             }
         }
     }

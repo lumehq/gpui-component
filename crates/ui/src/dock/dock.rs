@@ -80,7 +80,7 @@ impl Dock {
         cx: &mut ViewContext<Self>,
     ) -> Self {
         let panel = cx.new_view(|cx| {
-            let mut tab = TabPanel::new(None, dock_area.clone(), cx);
+            let mut tab = TabPanel::new(None, dock_area.clone(), false, cx);
             tab.closeable = false;
             tab
         });

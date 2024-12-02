@@ -147,32 +147,41 @@ impl DockItem {
         items: Vec<Arc<dyn PanelView>>,
         active_ix: Option<usize>,
         dock_area: &WeakView<DockArea>,
+        hidden_titlebar: bool,
         cx: &mut WindowContext,
     ) -> Self {
         let mut new_items: Vec<Arc<dyn PanelView>> = vec![];
         for item in items.into_iter() {
             new_items.push(item)
         }
-        Self::new_tabs(new_items, active_ix, dock_area, cx)
+        Self::new_tabs(new_items, active_ix, dock_area, hidden_titlebar, cx)
     }
 
     pub fn tab<P: Panel>(
         item: View<P>,
         dock_area: &WeakView<DockArea>,
+        hidden_titlebar: bool,
         cx: &mut WindowContext,
     ) -> Self {
-        Self::new_tabs(vec![Arc::new(item.clone())], None, dock_area, cx)
+        Self::new_tabs(
+            vec![Arc::new(item.clone())],
+            None,
+            dock_area,
+            hidden_titlebar,
+            cx,
+        )
     }
 
     fn new_tabs(
         items: Vec<Arc<dyn PanelView>>,
         active_ix: Option<usize>,
         dock_area: &WeakView<DockArea>,
+        hidden_titlebar: bool,
         cx: &mut WindowContext,
     ) -> Self {
         let active_ix = active_ix.unwrap_or(0);
         let tab_panel = cx.new_view(|cx| {
-            let mut tab_panel = TabPanel::new(None, dock_area.clone(), cx);
+            let mut tab_panel = TabPanel::new(None, dock_area.clone(), hidden_titlebar, cx);
             for item in items.iter() {
                 tab_panel.add_panel(item.clone(), cx)
             }
@@ -231,7 +240,7 @@ impl DockItem {
                 }
 
                 // Unable to find tabs, create new tabs
-                let new_item = Self::tabs(vec![panel.clone()], None, dock_area, cx);
+                let new_item = Self::tabs(vec![panel.clone()], None, dock_area, false, cx);
                 items.push(new_item.clone());
                 view.update(cx, |stack_panel, cx| {
                     stack_panel.add_panel(new_item.view(), None, dock_area.clone(), cx);
@@ -515,7 +524,7 @@ impl DockArea {
                     dock.update(cx, |dock, cx| dock.add_panel(panel, cx))
                 } else {
                     self.set_left_dock(
-                        DockItem::tabs(vec![panel], None, &weak_self, cx),
+                        DockItem::tabs(vec![panel], None, &weak_self, false, cx),
                         None,
                         true,
                         cx,
@@ -527,7 +536,7 @@ impl DockArea {
                     dock.update(cx, |dock, cx| dock.add_panel(panel, cx))
                 } else {
                     self.set_bottom_dock(
-                        DockItem::tabs(vec![panel], None, &weak_self, cx),
+                        DockItem::tabs(vec![panel], None, &weak_self, false, cx),
                         None,
                         true,
                         cx,
@@ -539,7 +548,7 @@ impl DockArea {
                     dock.update(cx, |dock, cx| dock.add_panel(panel, cx))
                 } else {
                     self.set_right_dock(
-                        DockItem::tabs(vec![panel], None, &weak_self, cx),
+                        DockItem::tabs(vec![panel], None, &weak_self, false, cx),
                         None,
                         true,
                         cx,
