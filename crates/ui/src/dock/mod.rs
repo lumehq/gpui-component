@@ -68,20 +68,21 @@ pub struct DockArea {
 /// DockItem is a tree structure that represents the layout of the dock.
 #[derive(Clone)]
 pub enum DockItem {
+    /// Split layout
     Split {
         axis: gpui::Axis,
         items: Vec<DockItem>,
         sizes: Vec<Option<Pixels>>,
         view: View<StackPanel>,
     },
+    /// Tab layout
     Tabs {
         items: Vec<Arc<dyn PanelView>>,
         active_ix: usize,
         view: View<TabPanel>,
     },
-    Plain {
-        view: Arc<dyn PanelView>,
-    },
+    /// Plain layout, user can put anything which implement PanelView trait
+    Plain { view: Arc<dyn PanelView> },
 }
 
 impl DockItem {
@@ -141,6 +142,11 @@ impl DockItem {
             sizes,
             view: stack_panel,
         }
+    }
+
+    /// Create DockItem with plain layout
+    pub fn plain(panel: Arc<dyn PanelView>) -> Self {
+        Self::Plain { view: panel }
     }
 
     /// Create DockItem with tabs layout, items are displayed as tabs.
