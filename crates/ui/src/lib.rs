@@ -46,10 +46,6 @@ pub mod tab;
 pub mod table;
 pub mod theme;
 pub mod tooltip;
-pub mod webview;
-
-// re-export
-pub use wry;
 
 pub use crate::Disableable;
 pub use event::InteractiveElementExt;
