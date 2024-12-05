@@ -20,6 +20,8 @@ pub use stack_panel::*;
 pub use state::*;
 pub use tab_panel::*;
 
+use crate::theme::ActiveTheme;
+
 pub fn init(cx: &mut AppContext) {
     cx.set_global(PanelRegistry::new());
 }
@@ -780,6 +782,8 @@ impl Render for DockArea {
                             // Left dock
                             .when_some(self.left_dock.clone(), |this, dock| {
                                 this.child(div().flex().flex_none().child(dock))
+                                    .bg(cx.theme().sidebar)
+                                    .text_color(cx.theme().sidebar_foreground)
                             })
                             // Center
                             .child(
