@@ -188,6 +188,9 @@ impl Dock {
                     }
                 });
             }
+            DockItem::Plain { .. } => {
+                // Not supported
+            }
         }
     }
 
@@ -356,12 +359,7 @@ impl Render for Dock {
             .relative()
             .overflow_hidden()
             .map(|this| match self.placement {
-                DockPlacement::Left | DockPlacement::Right => this
-                    .h_flex()
-                    .h_full()
-                    .w(self.size)
-                    .bg(cx.theme().sidebar)
-                    .text_color(cx.theme().sidebar_foreground),
+                DockPlacement::Left | DockPlacement::Right => this.h_flex().h_full().w(self.size),
                 DockPlacement::Bottom => this.w_full().h(self.size),
                 DockPlacement::Center => unreachable!(),
             })
@@ -372,6 +370,7 @@ impl Render for Dock {
             .map(|this| match &self.panel {
                 DockItem::Split { view, .. } => this.child(view.clone()),
                 DockItem::Tabs { view, .. } => this.child(view.clone()),
+                DockItem::Plain { view, .. } => this.child(view.clone().view()),
             })
             .child(self.render_resize_handle(cx))
             .child(DockElement {
