@@ -356,7 +356,12 @@ impl Render for Dock {
             .relative()
             .overflow_hidden()
             .map(|this| match self.placement {
-                DockPlacement::Left | DockPlacement::Right => this.h_flex().h_full().w(self.size),
+                DockPlacement::Left | DockPlacement::Right => this
+                    .h_flex()
+                    .h_full()
+                    .w(self.size)
+                    .bg(cx.theme().sidebar)
+                    .text_color(cx.theme().sidebar_foreground),
                 DockPlacement::Bottom => this.w_full().h(self.size),
                 DockPlacement::Center => unreachable!(),
             })
