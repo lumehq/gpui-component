@@ -1148,13 +1148,13 @@ impl Render for TextInput {
             .input_h(self.size)
             .when(self.appearance, |this| {
                 this.bg(if self.disabled {
-                    cx.theme().muted
+                    cx.theme().muted.opacity(0.7)
                 } else {
-                    cx.theme().background
+                    cx.theme().muted
                 })
                 .border_color(cx.theme().input)
                 .border_1()
-                .rounded(px(cx.theme().radius))
+                .rounded_lg()
                 .when(cx.theme().shadow, |this| this.shadow_sm())
                 .when(focused, |this| this.outline(cx))
                 .when(prefix.is_none(), |this| this.input_pl(self.size))
